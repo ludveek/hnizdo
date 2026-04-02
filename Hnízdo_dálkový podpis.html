@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jak podepsat Vyjádření podpory na dálku</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+* {
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+body {
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+  background: #eef2f7;
+  color: #1a1a2e;
+  padding: 20px 16px 40px;
+}
+
+.wrapper {
+  max-width: 640px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.10);
+  padding: 32px 28px 36px;
+}
+
+h1 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 24px;
+}
+
+.info-box {
+  background: #eff6ff;
+  border: 2px solid #bfdbfe;
+  border-radius: 14px;
+  padding: 14px 18px;
+  margin-bottom: 24px;
+}
+.info-box p {
+  color: #1e40af;
+  font-size: 14px;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.card {
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 18px 18px 20px;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.badge {
+  background: #1d4ed8;
+  color: white;
+  min-width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+  margin-right: 14px;
+  flex-shrink: 0;
+}
+
+.card-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+.card-text {
+  font-size: 14px;
+  color: #4b5563;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.demo {
+  background: #ffffff;
+  border: 1.5px solid #dde3ef;
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+.demo-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.input-field {
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  background: #f9fafb;
+  color: #374151;
+  display: block;
+  width: 100%;
+}
+
+.input-highlight {
+  border-color: #f59e0b;
+  border-width: 2px;
+  background: #fffbeb;
+}
+
+.btn {
+  background: #1d4ed8;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 4px;
+}
+
+.btn:hover { background: #1e40af; }
+
+.chip {
+  background: #fef3c7;
+  border: 1.5px solid #f59e0b;
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #92400e;
+  margin: 6px 0;
+  display: inline-block;
+}
+
+.signature-pad {
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  height: 70px;
+  margin: 8px 0;
+  position: relative;
+  background: white;
+}
+.signature-pad .tab {
+  position: absolute;
+  top: -11px;
+  left: 10px;
+  background: white;
+  padding: 3px 10px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-size: 12px;
+  font-weight: 600;
+  color: #1d4ed8;
+}
+.signature-line {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  right: 14px;
+  height: 2px;
+  background: #9ca3af;
+  border-radius: 2px;
+}
+
+.final-step {
+  background: #f0fdf4;
+  border: 1.5px solid #bbf7d0;
+  border-radius: 16px;
+  padding: 22px 20px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.final-step .card-header { justify-content: center; margin-bottom: 10px; }
+.final-step .badge { background: #059669; }
+.final-step h2 { font-size: 18px; color: #1a1a2e; }
+.final-step p { font-size: 14px; color: #4b5563; margin: 8px 0 16px; line-height: 1.6; }
+.final-step .btn { background: #059669; font-size: 16px; padding: 12px 32px; }
+.final-step .btn:hover { background: #047857; }
+
+.email-preview {
+  background: #f9fafb;
+  border: 1px solid #dde3ef;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 13px;
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+.notes {
+  background: #fefce8;
+  border: 1.5px solid #fde68a;
+  border-radius: 16px;
+  padding: 18px 20px;
+}
+.notes h3 {
+  color: #92400e;
+  font-size: 16px;
+  margin-bottom: 14px;
+}
+.note-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+.note-dot {
+  width: 8px;
+  height: 8px;
+  background: #f59e0b;
+  border-radius: 50%;
+  margin: 5px 10px 0 0;
+  flex-shrink: 0;
+}
+.note-text {
+  font-size: 13.5px;
+  color: #78350f;
+  line-height: 1.55;
+}
+
+.no-print { display: block; text-align: center; margin-top: 24px; }
+
+@media print {
+  body {
+    background: #eef2f7;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .wrapper {
+    box-shadow: none;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  .no-print {
+    display: none !important;
+  }
+}
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <h1>Jak podepsat Vyjádření podpory na dálku</h1>
+  <p class="subtitle">Jednoduchý návod pro podpis přes BoldSign · Postupujte krok za krokem</p>
+
+  <div class="info-box">
+    <p><b>Budete potřebovat:</b> přístup k e-mailové schránce, znalost svého jména, podpisu, ročník školy vašeho dítěte, myš nebo prst.</p>
+  </div>
+
+  <div class="steps">
+
+    <div class="card">
+      <div class="card-header">
+        <div class="badge">1</div>
+        <div class="card-title">Zažádejte o podpis</div>
+      </div>
+      <p class="card-text">Na číslo <b>737211072</b> odešlete pomocí WhatsApp <b>Vaše celé jméno</b> a <b>e-mailovou adresu</b>.</p>
+      <div class="demo">
+        <div class="demo-label">WhatsApp zpráva</div>
+        <div class="chip">737 211 072</div>
+        <div class="input-field">Jan Ludvík, ludveek@gmail.com</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="badge">2</div>
+        <div class="card-title">Otevřete výzvu</div>
+      </div>
+      <p class="card-text">V e-mailu klikněte na modré tlačítko pro zahájení podpisu.</p>
+      <div class="demo">
+        <div class="demo-label">E-mail s výzvou</div>
+        <div class="email-preview"><b>Od:</b> Jan Ludvík via BoldSign<br><b>Věc:</b> Žádost o podpis</div>
+        <button class="btn">Kontrola a podepsání</button>
+        <div class="chip">← klikněte</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="badge">3</div>
+        <div class="card-title">Opište OTP kód</div>
+      </div>
+      <p class="card-text">Do formuláře zadejte jednorázový kód, který vám přišel e-mailem.</p>
+      <div class="demo">
+        <div class="demo-label">Ověřovací formulář</div>
+        <b style="font-size:13px;">OTP kód</b>
+        <div class="input-field input-highlight">549 562</div>
+        <button class="btn">Ověřte</button>
+        <div class="chip">Kód nepřišel? Zkontrolujte spam</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="badge">4</div>
+        <div class="card-title">Potvrďte souhlas</div>
+      </div>
+      <p class="card-text">Zaškrtněte souhlas s podmínkami a pokračujte dál.</p>
+      <div class="demo">
+        <input type="checkbox" id="souhlas">
+        <label for="souhlas" style="font-size: 14px; margin-left: 8px; font-weight: 500;">Souhlasím s podmínkami použití elektronického podpisu</label>
+        <br><br>
+        <button class="btn">Pokračovat</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="badge">5</div>
+        <div class="card-title">Vyplňte ročník</div>
+      </div>
+      <p class="card-text">Na konci dokumentu doplňte ročník dítěte do žlutého pole.</p>
+      <div class="demo">
+        <div class="demo-label">Konec dokumentu</div>
+        <b style="font-size:13px;">Jméno</b>
+        <div class="input-field">Jan Ludvík</div>
+        <b style="font-size:13px;">Ročník dítěte</b>
+        <div class="input-field input-highlight">2.</div>
+        <b style="font-size:13px;">Datum</b>
+        <div class="input-field">01.04.2026</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="badge">6</div>
+        <div class="card-title">Podepište se</div>
+      </div>
+      <p class="card-text">V poli Podpis zvolte Nakreslit, podepište se a potvrďte.</p>
+      <div class="demo">
+        <div class="demo-label">Podpis</div>
+        <div class="signature-pad">
+          <div class="tab">Nakreslit</div>
+          <div class="signature-line"></div>
+        </div>
+        <button class="btn">Akceptovat &amp; použít</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="final-step">
+    <div class="card-header">
+      <div class="badge">7</div>
+      <h2>Odešlete dokument</h2>
+    </div>
+    <p>Po potvrzení podpisu klikněte na Dokončit. Tím se podepsaný dokument odešle.</p>
+    <button class="btn">Dokončit</button>
+  </div>
+
+  <div class="notes">
+    <h3>⚠️ Důležité poznámky</h3>
+    <div class="note-item">
+      <div class="note-dot"></div>
+      <div class="note-text">Na základě žádosti přes WA Vám bude odeslána výzva na e-mailovou adresu. Odeslání výzvy Vám vždy potvrdíme odpovědí přes WA. Pokud výzvu v e-mailu nenajdete, přestože Vám potvrdíme odeslání, zkontrolujte složku <b>nevyžádané pošty</b>.</div>
+    </div>
+    <div class="note-item">
+      <div class="note-dot"></div>
+      <div class="note-text">Pokud Vaše dítě navštěvuje mateřskou školu, do pole ročník napište „školka".</div>
+    </div>
+    <div class="note-item">
+      <div class="note-dot"></div>
+      <div class="note-text">Pokud máte více dětí, uveďte všechny ročníky oddělené čárkou, např. „2., 4., školka".</div>
+    </div>
+    <div class="note-item">
+      <div class="note-dot"></div>
+      <div class="note-text">Nedaří se Vám podpis dokončit? Nezoufejte a napište na WA. Ozveme se Vám hned, jak to bude možné.</div>
+    </div>
+  </div>
+
+  <div class="no-print">
+    <button class="btn" onclick="window.print()">Stáhnout PDF</button>
+  </div>
+
+</div>
+
+<script>
+  window.addEventListener('load', function () {
+    const wrapper = document.querySelector('.wrapper');
+    const h = wrapper.getBoundingClientRect().height;
+    const hMm = Math.ceil(h * 0.264583) + 22; // 10mm margin nahoře + 12mm dole
+    const style = document.createElement('style');
+    style.textContent = `@page { size: 210mm ${hMm}mm; margin: 10mm 15mm; }`;
+    document.head.appendChild(style);
+  });
+</script>
+
+</body>
+</html>
